@@ -13,15 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Header Files\Basic Tools">
+      <UniqueIdentifier>{241353f9-f07b-4262-a001-35fb0e533fd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Log System">
+      <UniqueIdentifier>{7628bacb-1d4b-40bb-8c81-16d24568aeb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\core\src\Log System\log_manager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Log System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\src\Log System\logger.cpp">
+      <Filter>Source Files\Log System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\core\include\log_system.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\Basic Tools\file_basic_tools.h">
+      <Filter>Header Files\Basic Tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

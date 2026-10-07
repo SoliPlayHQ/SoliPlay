@@ -19,6 +19,8 @@ Level transLevelToString(std::string strLv);
 // 日志记录器
 class Logger {
 public:
+	Logger(std::string name, Level lv, std::vector<LogOutputterBase*>& outputters);
+
 	void trace(const std::string& msg);
 	void debug(const std::string& msg);
 	void info(const std::string& msg);
@@ -27,6 +29,10 @@ public:
 	void fatal(const std::string& msg);
 
 private:
+	Level _level;
+	std::string _name;
+	std::vector<LogOutputterBase*> _outputters;
+
 	void log(Level lv, const std::string& msg);
 };
 
@@ -37,13 +43,14 @@ enum class OutputType {
 
 // 日志输出器
 class LogOutputterBase {
+public:
 	std::string getName(void);
 	OutputType getType(void);
-	~LogOutputterBase() = default;
+	virtual ~LogOutputterBase() = default;
 	// 向输出器写入日志
 	virtual void write(const std::string& msg) = 0;
 	// 清空输出器缓存
-	virtual void flush(void);
+	virtual void flush(void) = 0;
 private:
 	std::string _name;
 	OutputType _type;
@@ -67,9 +74,9 @@ public:
 
 	// 获取实例（全局单例）
 	static LogManager& getInstance(void);
-	
+	Logger* getLogger(std::string name);
 private:
-	void createLogger(std::string name, std::vector<std::string> setOutter);
+	void createLogger(std::string name, std::vector<std::string> setOutter, Level lv);
 	void createConsoleOutputter(std::string name);
 	std::string createFileOutputter(std::string name, std::string dir, std::string prefix);
 

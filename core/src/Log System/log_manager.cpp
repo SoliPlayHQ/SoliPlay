@@ -14,13 +14,18 @@ LogManager::LogManager(void) {
 
 	nlohmann::json logJson = readAllFileToJson(log_config_path);
 
+	if (logJson.is_null()) {
+		std::cerr << "日志配置文件不存在！";
+		return;
+	}
+
 	bool err = false;
 	std::string err_reasoning;
 
 	// 解析日志过滤等级
+	Level lv = Level::TRACE;
 	if (logJson["level"].is_string()) {
 		std::string strLv = logJson["level"];
-		Level lv = Level::TRACE;
 		if (strLv == "TRACE") lv = Level::TRACE;
 		else if (strLv == "DEBUG") lv = Level::DEBUG;
 		else if (strLv == "INFO") lv = Level::INFO;
@@ -30,6 +35,7 @@ LogManager::LogManager(void) {
 		else {
 			// 解析失败报错
 			std::cerr << "日志配置文件解析失败！原因：level 字段不符合枚举规范！";
+			err = true;
 		}
 	}
 	
@@ -88,6 +94,8 @@ LogManager::LogManager(void) {
 					break;
 				}
 			}
+
+			createLogger(logger["name"], outputters, lv);
 
 			if (err) break;
 		}
