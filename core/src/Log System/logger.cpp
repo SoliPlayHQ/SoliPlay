@@ -36,3 +36,7 @@ void Logger::log(Level lv, const std::string& msg) {
 	for (auto &outputter : _outputters)
 		outputter->write("[" + transLevelToString(lv) + "]" + msg + "[from logger-" + _name + "]");
 }
+
+std::string Logger::getName(void) {
+	return _name;
+}

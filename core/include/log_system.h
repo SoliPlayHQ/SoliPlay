@@ -28,6 +28,7 @@ public:
 	void error(const std::string& msg);
 	void fatal(const std::string& msg);
 
+	std::string getName(void);
 private:
 	Level _level;
 	std::string _name;
@@ -74,11 +75,16 @@ public:
 
 	// 获取实例（全局单例）
 	static LogManager& getInstance(void);
+	// 获取日志记录器
 	Logger* getLogger(std::string name);
 private:
-	void createLogger(std::string name, std::vector<std::string> setOutter, Level lv);
+	LogOutputterBase* getOutputter(std::string name);
+	Logger* createLogger(std::string name, std::vector<std::string> setOutter, Level lv);
 	void createConsoleOutputter(std::string name);
 	std::string createFileOutputter(std::string name, std::string dir, std::string prefix);
+
+	std::vector<LogOutputterBase*> outputters;
+	std::vector<Logger*> loggers;
 
 	Level _lvDefault;
 };

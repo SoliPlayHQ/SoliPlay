@@ -101,3 +101,25 @@ LogManager::LogManager(void) {
 		}
 	}
 }
+
+Logger* LogManager::getLogger(std::string name) {
+	for (auto& logger : loggers)
+		if (logger->getName() == name)
+			return logger;
+	return nullptr;
+}
+
+Logger* LogManager::createLogger(std::string name, std::vector<std::string> setOutter, Level lv) {
+	std::vector<LogOutputterBase*> opts;
+	LogOutputterBase* p;
+	for (auto& outputter_name : setOutter)
+		if ((p = getOutputter(outputter_name)) != nullptr) opts.push_back(p);
+		else return;
+	Logger* nexLogger = new Logger(name, lv, opts);
+
+	if (nexLogger != nullptr) {
+		loggers.push_back(nexLogger);
+	}
+	
+	return nexLogger;
+}
