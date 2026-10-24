@@ -145,9 +145,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\core\include\log_system.h" />
+    <ClInclude Include="..\core\include\plugins_system\plugin_handle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\core\src\log_system.cpp" />
+    <ClCompile Include="..\core\src\plugins_system\plugin_handle.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

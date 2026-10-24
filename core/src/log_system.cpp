@@ -4,7 +4,7 @@
 /*
 简易日志系统（标准控制台终端输入输出）
 */
-namespace Log {
+namespace SPLog {
 	std::string get_filename(const char* path) {
 		const char* p = path + std::strlen(path);
 		while ((p > path) && (*(p - 1) != '\\' && *(p - 1) != '/'))

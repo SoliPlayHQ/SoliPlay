@@ -2,7 +2,7 @@
 #include <string>
 #include <source_location>
 
-namespace Log {
+namespace SPLog {
 	enum class Level {
 		trace = 0,
 		debug = 1,
