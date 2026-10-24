@@ -1,53 +1,53 @@
 #include <log_system.h>
 #include <iostream>
 #include <Windows.h>
-
 /*
 简易日志系统（标准控制台终端输入输出）
 */
-enum class Level {
-	trace = 0,
-	debug = 1,
-	info = 2,
-	warn = 3,
-	error = 4,
-	fatal = 5
-};
+namespace Log {
+	std::string get_filename(const char* path) {
+		const char* p = path + std::strlen(path);
+		while ((p > path) && (*(p - 1) != '\\' && *(p - 1) != '/'))
+			--p;
 
+		return p;
+	}
 
-Level log_level = Level::trace;
+	Level log_level = Level::trace;
 
-void initLogSystem(Level lv = Level::info) {
-	SetConsoleOutputCP(CP_UTF8);
-	SetConsoleCP(CP_UTF8);
-	log_level = lv;
-}
+	void initLogSystem(Level lv = Level::info) {
+		SetConsoleOutputCP(CP_UTF8);
+		SetConsoleCP(CP_UTF8);
+		log_level = lv;
+	}
 
-void log(Level lv, std::string msg) {
-	if (lv < log_level) return;
-	std::cout << msg << std::endl;
-}
+	void log(Level lv, std::string msg, const std::source_location& location) {
+		if (lv < log_level) return;
+		std::cout << get_filename(location.file_name()) << ':' << location.line() << " - " << msg << std::endl;
+	}
 
-void trace(std::string msg) {
-	log(Level::trace, msg);
-}
+	void trace(std::string msg, const std::source_location& location) {
+		log(Level::trace, msg, location);
+	}
 
-void debug(std::string msg) {
-	log(Level::debug, msg);
-}
+	void debug(std::string msg, const std::source_location& location) {
+		log(Level::debug, msg, location);
+	}
 
-void info(std::string msg) {
-	log(Level::info, msg);
-}
+	void info(std::string msg, const std::source_location& location) {
+		log(Level::info, msg, location);
+	}
 
-void warn(std::string msg) {
-	log(Level::warn, msg);
-}
+	void warn(std::string msg, const std::source_location& location) {
+		log(Level::warn, msg, location);
+	}
 
-void error(std::string msg) {
-	log(Level::error, msg);
-}
+	void error(std::string msg, const std::source_location& location) {
+		log(Level::error, msg, location);
+	}
 
-void fatal(std::string msg) {
-	log(Level::fatal, msg);
+	void fatal(std::string msg, const std::source_location& location) {
+		log(Level::fatal, msg, location);
+	}
+
 }
