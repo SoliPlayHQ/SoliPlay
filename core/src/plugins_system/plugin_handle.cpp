@@ -1,4 +1,5 @@
 #include <plugins_system/plugin_handle.h>
+#include <stdexcept>
 
 std::wstring ChartoWide(const std::string& utf8) {
 	if (utf8.empty()) return {};
@@ -17,7 +18,16 @@ std::wstring ChartoWide(const std::string& utf8) {
 
 namespace SPPlugin {
 	PluginHandle::PluginHandle(std::string path) {
+		if (path.empty()) {
+			throw std::invalid_argument("Plugin path can't be empty!");
+		}
+
 		hPlugin_ = LoadLibraryW(ChartoWide(path).c_str());
+		if (!hPlugin_) {
+			DWORD err = GetLastError();
+			throw std::runtime_error("LoadLibrary Failed with error code:" + std::to_string(err));
+		}
+
 	}
 
 	void* PluginHandle::getFuncAddress(std::string name) {

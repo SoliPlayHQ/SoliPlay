@@ -10,7 +10,6 @@ namespace SPPlugin {
 
 		void* getFuncAddress(std::string name);
 
-
 		PluginHandle(const PluginHandle&) = delete;
 		PluginHandle& operator=(const PluginHandle&) = delete;
 		PluginHandle(PluginHandle&& other) noexcept;
