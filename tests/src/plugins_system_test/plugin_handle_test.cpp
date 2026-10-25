@@ -1,6 +1,6 @@
 #include "pch.h"
 #include <plugins_system/plugin_handle.h>
-#include "..\core\src\plugins_system\plugin_handle.cpp"
+#include "..\..\..\core\src\plugins_system\plugin_handle.cpp"
 
 /*
 PluginHandle 单元测试
