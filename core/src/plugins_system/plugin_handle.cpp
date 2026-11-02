@@ -18,11 +18,13 @@ std::wstring ChartoWide(const std::string& utf8) {
 
 namespace SPPlugin {
 	PluginHandle::PluginHandle(std::string path) {
+		// 检测 Path 是否为空
 		if (path.empty()) {
 			throw std::invalid_argument("Plugin path can't be empty!");
 		}
 
 		hPlugin_ = LoadLibraryW(ChartoWide(path).c_str());
+		// 检测 DLL 是否可用
 		if (!hPlugin_) {
 			DWORD err = GetLastError();
 			throw std::runtime_error("LoadLibrary Failed with error code:" + std::to_string(err));

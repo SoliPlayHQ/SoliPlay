@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="..\core\include\log_system.h" />
     <ClInclude Include="..\core\include\plugins_system\plugin_handle.h" />
+    <ClInclude Include="..\sdk\iplugin.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\core\src\log_system.cpp" />

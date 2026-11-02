@@ -38,5 +38,8 @@
     <ClInclude Include="..\core\include\plugins_system\plugin_handle.h">
       <Filter>Header Files\Plugins System</Filter>
     </ClInclude>
+    <ClInclude Include="..\sdk\iplugin.h">
+      <Filter>Header Files\Plugins System</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

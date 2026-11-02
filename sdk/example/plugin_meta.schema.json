@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "SoliPlay Plugin Manifest",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "插件唯一标识符",
+            "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$",
+            "description": "插件版本号"
+        },
+        "type": {
+            "type": "string",
+            "enum": ["story_core", "free"],
+            "description": "插件类型"
+        },
+        "arch_version": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "插件架构版本号，用于保证主程序与插件的ABI兼容性。"
+        },
+        "entry": {
+            "type": "string",
+            "description": "插件入口 DLL 文件名"
+        },
+        "dependencies": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "description": "被依赖插件的唯一标识符",
+                "pattern": "^[a-zA-Z0-9_-]+$"
+            },
+            "description": "依赖的插件名称"
+        }
+    },
+    "required": ["name", "version", "type", "arch_version", "entry"],
+    "additionalProperties": false
+}
