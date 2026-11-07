@@ -21,12 +21,9 @@ namespace SPPlugin {
 		void initialize(void);
 		void shutdown(void);
 
-		// 扫描并装配插件文件夹下的所有插件
+		// 扫描并装配所有插件文件夹下的所有插件
 		void loadPlugins(void);
 	private:
-		// 解析 Meta 文件
-		PluginMeta analysisMeta(std::string strMeta);
-
 		std::unordered_map<std::string, std::unique_ptr<Plugin>> mapPlugins;
 	};
 }

@@ -38,5 +38,5 @@
         }
     },
     "required": ["name", "version", "type", "arch_version", "entry"],
-    "additionalProperties": false
+    "additionalProperties": true
 }

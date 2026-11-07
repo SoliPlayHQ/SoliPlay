@@ -1,5 +1,6 @@
 #include <file_system/work_path.h>
 #include <tool_functions/path_tools.h>
+#include <log_system.h>
 #include <filesystem>
 
 #include <windows.h>
@@ -8,8 +9,6 @@
 namespace SPFile {
     static std::string excute_path;
     static std::string write_path;
-    static std::string offical_plugin_path;
-    static std::string user_plugin_path;
 
     // 初始化工作目录
     void initWorkPath(void) {
@@ -18,9 +17,10 @@ namespace SPFile {
         wchar_t path[MAX_PATH];
         DWORD len = GetModuleFileNameW(NULL, path, MAX_PATH);
         excute_path = SPTool::PathToChar(std::filesystem::path(path).parent_path());
+        SPLog::info("Get Excution Directory Path: " + excute_path);
 
         PWSTR pszPath = nullptr;
-        HRESULT hResult = SHGetKnownFolderPath(FOLDERID_RoamingAppData, 0, nullptr, &pszPath);
+        HRESULT hResult = SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, nullptr, &pszPath);
         if (SUCCEEDED(hResult)) {
             std::filesystem::path pAppdata(pszPath);
             pAppdata /= "SoliPlay";
@@ -28,11 +28,18 @@ namespace SPFile {
 
             std::error_code ec;
             std::filesystem::create_directories(pAppdata, ec);
-            if (ec) throw std::runtime_error("Can't Create Safety Directory: " + ec.message());
+            if (ec) {
+                SPLog::fatal("Can't Create Safety Directory!");
+                throw std::runtime_error("Can't Create Safety Directory: " + ec.message());
+            }
 
             write_path = SPTool::PathToChar(pAppdata);
         }
-        else write_path = excute_path;
+        else {
+            SPLog::fatal("Can't Get Safety Directory!");
+            write_path = excute_path;
+        }
+        SPLog::info("Get Safety Directory Path: " + write_path);
 #endif
     }
 

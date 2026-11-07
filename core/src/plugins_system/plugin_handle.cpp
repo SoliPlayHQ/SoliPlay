@@ -6,7 +6,7 @@ namespace SPPlugin {
 	PluginHandle::PluginHandle(std::string path) {
 		// 检测 Path 是否为空
 		if (path.empty()) {
-			throw std::invalid_argument("Plugin path can't be empty!");
+			throw std::invalid_argument("Plugin Path can't be empty!");
 		}
 
 		hPlugin_ = LoadLibraryW(SPTool::ChartoWide(path).c_str());
