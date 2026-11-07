@@ -1,20 +1,6 @@
 #include <plugins_system/plugin_handle.h>
 #include <stdexcept>
-
-std::wstring ChartoWide(const std::string& utf8) {
-	if (utf8.empty()) return {};
-	std::string nmstr = utf8;
-	for (auto& ch : nmstr)
-		if (ch == L'/') ch = L'\\';
-
-	int len = MultiByteToWideChar(CP_UTF8, 0, nmstr.c_str(), -1, nullptr, 0);
-	if (len <= 0) return {};
-	std::wstring wstr(len, L'\0');
-	MultiByteToWideChar(CP_UTF8, 0, nmstr.c_str(), -1, &wstr[0], len);
-	wstr.pop_back();
-	return wstr;
-}
-
+#include <tool_functions/string_tools.h>
 
 namespace SPPlugin {
 	PluginHandle::PluginHandle(std::string path) {
@@ -23,7 +9,7 @@ namespace SPPlugin {
 			throw std::invalid_argument("Plugin path can't be empty!");
 		}
 
-		hPlugin_ = LoadLibraryW(ChartoWide(path).c_str());
+		hPlugin_ = LoadLibraryW(SPTool::ChartoWide(path).c_str());
 		// 检测 DLL 是否可用
 		if (!hPlugin_) {
 			DWORD err = GetLastError();

@@ -5,6 +5,9 @@
     <ClCompile Include="src\plugins_system_test\plugin_handle_test.cpp">
       <Filter>Source Files\Plugins System Test</Filter>
     </ClCompile>
+    <ClCompile Include="..\core\src\tool_functions\string_tools.cpp">
+      <Filter>Source Files\Plugins System Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

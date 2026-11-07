@@ -23,7 +23,7 @@ namespace SPLog {
 
 	void log(Level lv, std::string msg, const std::source_location& location) {
 		if (lv < log_level) return;
-		std::cout << get_filename(location.file_name()) << ':' << location.line() << " - " << msg << std::endl;
+		std::cout << SPLog::headLevel[(int)lv] << get_filename(location.file_name()) << ':' << location.line() << " - " << msg << std::endl;
 	}
 
 	void trace(std::string msg, const std::source_location& location) {

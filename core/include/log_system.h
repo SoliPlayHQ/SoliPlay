@@ -12,6 +12,8 @@ namespace SPLog {
 		fatal = 5
 	};
 
+	const std::string headLevel[] = {"[TRACE]","[DEBUG]","[INFO ]","[WARN ]","[ERROR]","[FATAL]"};
+
 	void initLogSystem(Level lv);
 
 	void trace(std::string msg, const std::source_location& location = std::source_location::current());

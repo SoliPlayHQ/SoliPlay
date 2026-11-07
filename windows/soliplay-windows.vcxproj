@@ -117,7 +117,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\core\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\core\include;$(SolutionDir)..\sdk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -133,7 +133,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\core\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\core\include;$(SolutionDir)..\sdk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -144,13 +144,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\core\include\file_system\work_path.h" />
     <ClInclude Include="..\core\include\log_system.h" />
+    <ClInclude Include="..\core\include\plugins_system\host_API.h" />
+    <ClInclude Include="..\core\include\plugins_system\plugin.h" />
     <ClInclude Include="..\core\include\plugins_system\plugin_handle.h" />
+    <ClInclude Include="..\core\include\plugins_system\plugin_manager.h" />
+    <ClInclude Include="..\core\include\tool_functions\path_tools.h" />
+    <ClInclude Include="..\core\include\tool_functions\string_tools.h" />
     <ClInclude Include="..\sdk\iplugin.h" />
+    <ClInclude Include="..\sdk\iplugin_struct.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\core\src\file_system\work_path.cpp" />
     <ClCompile Include="..\core\src\log_system.cpp" />
+    <ClCompile Include="..\core\src\plugins_system\plugin.cpp" />
     <ClCompile Include="..\core\src\plugins_system\plugin_handle.cpp" />
+    <ClCompile Include="..\core\src\plugins_system\plugin_manager.cpp" />
+    <ClCompile Include="..\core\src\tool_functions\path_tools.cpp" />
+    <ClCompile Include="..\core\src\tool_functions\string_tools.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -19,6 +19,21 @@
     <Filter Include="Source Files\Plugins System">
       <UniqueIdentifier>{b22814ef-be4d-4ad5-a759-216cf44cb78c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Plugins System\Plugins SDK">
+      <UniqueIdentifier>{a72f3d83-35aa-4d4b-b605-d6922589c0d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\File System">
+      <UniqueIdentifier>{70d1ad15-0eea-474b-aee7-09958771ea3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\File System">
+      <UniqueIdentifier>{5ef4d3b8-5ad7-4481-b45b-524a47d87d83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tool Functions">
+      <UniqueIdentifier>{1d3b6580-9b2b-4a32-8fdf-1a4d4c339b70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tool Functions">
+      <UniqueIdentifier>{6e362edc-2566-46d4-905f-ceb7b5f904ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -30,6 +45,21 @@
     <ClCompile Include="..\core\src\log_system.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\core\src\plugins_system\plugin_manager.cpp">
+      <Filter>Source Files\Plugins System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\src\plugins_system\plugin.cpp">
+      <Filter>Source Files\Plugins System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\src\tool_functions\string_tools.cpp">
+      <Filter>Source Files\Tool Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\src\tool_functions\path_tools.cpp">
+      <Filter>Source Files\Tool Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\src\file_system\work_path.cpp">
+      <Filter>Source Files\File System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\core\include\log_system.h">
@@ -38,8 +68,29 @@
     <ClInclude Include="..\core\include\plugins_system\plugin_handle.h">
       <Filter>Header Files\Plugins System</Filter>
     </ClInclude>
-    <ClInclude Include="..\sdk\iplugin.h">
+    <ClInclude Include="..\core\include\plugins_system\plugin_manager.h">
       <Filter>Header Files\Plugins System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sdk\iplugin.h">
+      <Filter>Header Files\Plugins System\Plugins SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sdk\iplugin_struct.h">
+      <Filter>Header Files\Plugins System\Plugins SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\plugins_system\host_API.h">
+      <Filter>Header Files\Plugins System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\plugins_system\plugin.h">
+      <Filter>Header Files\Plugins System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\file_system\work_path.h">
+      <Filter>Header Files\File System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\tool_functions\string_tools.h">
+      <Filter>Header Files\Tool Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\tool_functions\path_tools.h">
+      <Filter>Header Files\Tool Functions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

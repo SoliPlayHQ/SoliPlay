@@ -15,13 +15,13 @@
         },
         "type": {
             "type": "string",
-            "enum": ["story_core", "free"],
-            "description": "插件类型"
+            "enum": ["object", "function"],
+            "description": "插件类型。object 类型为实例插件"
         },
         "arch_version": {
             "type": "integer",
             "minimum": 1,
-            "description": "插件架构版本号，用于保证主程序与插件的ABI兼容性。"
+            "description": "插件架构版本号，用于保证主程序与插件的 ABI 兼容性。"
         },
         "entry": {
             "type": "string",

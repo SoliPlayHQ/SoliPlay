@@ -1,0 +1,32 @@
+#pragma once
+#include <iplugin_struct.h>
+#include <plugins_system/host_API.h>
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <memory>
+
+#include <plugins_system/plugin.h>
+
+namespace SPPlugin {
+	// 插件管理器
+	class PluginManager {
+	public:
+		static PluginManager& getInstance(void);
+
+		PluginManager() = default;
+		~PluginManager() = default;
+
+		// 运行周期管理
+		void initialize(void);
+		void shutdown(void);
+
+		// 扫描并装配插件文件夹下的所有插件
+		void loadPlugins(void);
+	private:
+		// 解析 Meta 文件
+		PluginMeta analysisMeta(std::string strMeta);
+
+		std::unordered_map<std::string, std::unique_ptr<Plugin>> mapPlugins;
+	};
+}
