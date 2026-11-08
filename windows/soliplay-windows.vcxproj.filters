@@ -60,6 +60,9 @@
     <ClCompile Include="..\core\src\file_system\work_path.cpp">
       <Filter>Source Files\File System</Filter>
     </ClCompile>
+    <ClCompile Include="..\core\src\file_system\library.cpp">
+      <Filter>Source Files\File System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\core\include\log_system.h">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="..\core\include\tool_functions\path_tools.h">
       <Filter>Header Files\Tool Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\file_system\library.h">
+      <Filter>Header Files\File System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

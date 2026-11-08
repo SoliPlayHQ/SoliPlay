@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\core\include\file_system\library.h" />
     <ClInclude Include="..\core\include\file_system\work_path.h" />
     <ClInclude Include="..\core\include\log_system.h" />
     <ClInclude Include="..\core\include\plugins_system\host_API.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="..\sdk\iplugin_struct.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\core\src\file_system\library.cpp" />
     <ClCompile Include="..\core\src\file_system\work_path.cpp" />
     <ClCompile Include="..\core\src\log_system.cpp" />
     <ClCompile Include="..\core\src\plugins_system\plugin.cpp" />

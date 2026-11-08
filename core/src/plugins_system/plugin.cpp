@@ -17,7 +17,7 @@ namespace SPPlugin {
 
 		// 尝试创建插件
 		try {
-			handle_ = std::make_unique<PluginHandle>(SPTool::PathToChar(pAbsolutePath));
+			handle_ = std::make_unique<PluginHandle>(SPTool::PathtoChar(pAbsolutePath));
 		}
 		catch (const std::exception& e) {
 			throw std::runtime_error(std::format("Plugin {0} Initialize Failed! Cause: {1}",meta_.name,e.what()));

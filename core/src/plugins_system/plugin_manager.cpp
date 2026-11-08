@@ -1,9 +1,11 @@
 #include <plugins_system/plugin_manager.h>
 #include <log_system.h>
 #include <tool_functions/path_tools.h>
+#include <file_system/work_path.h>
 
 #include <filesystem>
 #include <nlohmann/json.hpp>
+
 
 namespace SPPlugin {
 	PluginManager& PluginManager::getInstance(void) {
@@ -13,7 +15,7 @@ namespace SPPlugin {
 
 	// 运行周期管理
 	void PluginManager::initialize(void) {
-
+		
 	}
 
 	void PluginManager::shutdown(void) {
@@ -23,8 +25,10 @@ namespace SPPlugin {
 		mapPlugins.clear();
 	}
 
-	// 扫描并装配所有插件文件夹下的所有插件
-	//void PluginManager::loadPlugins(void);
+	// 扫描并装配指定库中，插件文件夹下的所有插件
+	void PluginManager::loadPlugins(std::string pathOrigin) {
+
+	}
 
 	/*
 	// 插件元数据结构体
@@ -43,10 +47,11 @@ namespace SPPlugin {
 	PluginMeta analysisMeta(std::string strMeta, std::string pathOrigin, std::filesystem::path pathParent) {
 		PluginMeta plugin_meta;
 
-		plugin_meta.origin = SPTool::PathToChar(pathOrigin);
+		plugin_meta.origin = SPTool::PathtoChar(pathOrigin);
 		try {
 			nlohmann::json jsonMeta(strMeta);
 
+			// name 解析
 			if (jsonMeta.contains("name") && jsonMeta["name"].is_string()) {
 				plugin_meta.name = jsonMeta["name"].get<std::string>();
 			}
@@ -54,6 +59,7 @@ namespace SPPlugin {
 				throw std::runtime_error("meta.json missing name Field or Invalid type (Must be string)");
 			}
 
+			// version 解析
 			if (jsonMeta.contains("version") && jsonMeta["version"].is_string()) {
 				plugin_meta.version = jsonMeta["version"].get<std::string>();
 			}
@@ -61,6 +67,7 @@ namespace SPPlugin {
 				throw std::runtime_error("meta.json missing version field or Invalid type (Must be string)");
 			}
 
+			// arch_version 解析
 			if (jsonMeta.contains("arch_version") && jsonMeta["arch_version"].is_number_integer()) {
 				plugin_meta.arch_version = jsonMeta["arch_version"].get<int>();
 			}
@@ -68,6 +75,7 @@ namespace SPPlugin {
 				throw std::runtime_error("meta.json missing arch_version field or Invalid type (Must be integer)");
 			}
 
+			// type 解析
 			if (jsonMeta.contains("type") && jsonMeta["type"].is_string()) {
 				std::string typeStr = jsonMeta["type"].get<std::string>();
 				if (typeStr == "object") {
@@ -84,13 +92,15 @@ namespace SPPlugin {
 				throw std::runtime_error("meta.json missing type field or Invalid type (Must be string)");
 			}
 
+			// entry 解析、修饰相对路径
 			if (jsonMeta.contains("entry") && jsonMeta["entry"].is_string()) {
-				plugin_meta.entry_path = SPTool::PathToChar(pathParent / std::filesystem::path(jsonMeta["entry"].get<std::string>()));
+				plugin_meta.entry_path = SPTool::PathtoChar(pathParent / std::filesystem::path(jsonMeta["entry"].get<std::string>()));
 			}
 			else {
 				throw std::runtime_error("meta.json missing entry field or Invalid type (Must be string)");
 			}
 
+			// dependencies 解析
 			if (jsonMeta.contains("dependencies")) {
 				if (jsonMeta["dependencies"].is_array()) {
 					for (const auto& item : jsonMeta["dependencies"]) {
@@ -107,8 +117,8 @@ namespace SPPlugin {
 				}
 			}
 
+			// debug 报告
 			std::string type_str = (plugin_meta.type == PluginType::object) ? "Object (Instance)" : "Function (Tool)";
-
 			std::string deps_str = "None";
 			if (!plugin_meta.dependencies.empty()) {
 				deps_str = "";
@@ -118,7 +128,7 @@ namespace SPPlugin {
 				}
 			}
 
-			std::string debug_msg = std::format(
+			SPLog::debug(std::format(
 				"\n================ [{0} Plugin Meta Parsed Successfully] ================\n"
 				"  [Name]         : {0}\n"
 				"  [Version]      : {1}\n"
@@ -131,15 +141,14 @@ namespace SPPlugin {
 				plugin_meta.name, plugin_meta.version, type_str,
 				plugin_meta.arch_version, plugin_meta.entry_path,
 				plugin_meta.origin, deps_str
-			);
-			SPLog::debug(debug_msg);
+			));
 
 		}
 		catch (const nlohmann::json::parse_error& e) {
-			SPLog::error("JSON Syntax Parse Failed: " + std::string(e.what()));
+			throw std::runtime_error("JSON Syntax Parse Failed: " + std::string(e.what()));
 		}
 		catch (const std::exception& e) {
-			SPLog::error(std::string("Parse Exception: ") + e.what());
+			throw;
 		}
 
 		return plugin_meta;

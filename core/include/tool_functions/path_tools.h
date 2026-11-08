@@ -3,5 +3,5 @@
 #include <filesystem>
 
 namespace SPTool {
-    std::string PathToChar(const std::filesystem::path& path);
+    std::string PathtoChar(const std::filesystem::path& path);
 }

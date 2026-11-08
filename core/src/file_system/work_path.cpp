@@ -7,8 +7,8 @@
 #include <shlobj.h>
 
 namespace SPFile {
-    static std::string excute_path;
-    static std::string write_path;
+    static std::filesystem::path pathExcute;
+    static std::filesystem::path pathWrite;
 
     // 初始化工作目录
     void initWorkPath(void) {
@@ -16,40 +16,41 @@ namespace SPFile {
 #ifdef _WIN32
         wchar_t path[MAX_PATH];
         DWORD len = GetModuleFileNameW(NULL, path, MAX_PATH);
-        excute_path = SPTool::PathToChar(std::filesystem::path(path).parent_path());
-        SPLog::info("Get Excution Directory Path: " + excute_path);
+        pathExcute = std::filesystem::path(path).parent_path();
+        SPLog::info("Get Excution Directory Path: " + SPTool::PathtoChar(pathExcute));
 
+        // 获取写入目录
         PWSTR pszPath = nullptr;
         HRESULT hResult = SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, nullptr, &pszPath);
         if (SUCCEEDED(hResult)) {
-            std::filesystem::path pAppdata(pszPath);
-            pAppdata /= "SoliPlay";
+            std::filesystem::path pathAppdata(pszPath);
+            pathAppdata /= "SoliPlay";
             CoTaskMemFree(pszPath);
 
             std::error_code ec;
-            std::filesystem::create_directories(pAppdata, ec);
+            std::filesystem::create_directories(pathAppdata, ec);
             if (ec) {
                 SPLog::fatal("Can't Create Safety Directory!");
                 throw std::runtime_error("Can't Create Safety Directory: " + ec.message());
             }
 
-            write_path = SPTool::PathToChar(pAppdata);
+            pathWrite = pathAppdata;
         }
         else {
             SPLog::fatal("Can't Get Safety Directory!");
-            write_path = excute_path;
+            pathWrite = pathExcute;
         }
-        SPLog::info("Get Safety Directory Path: " + write_path);
+        SPLog::info("Get Safety Directory Path: " + SPTool::PathtoChar(pathWrite));
 #endif
     }
 
     // 获取执行目录，一般为程序根目录
-    std::string getExcutePath(void) {
-        return excute_path;
+    const std::filesystem::path& getExcutePath(void) {
+        return pathExcute;
     }
 
     // 获取写入目录，一般为可写入的安全目录
-    std::string getWritePath(void) {
-        return write_path;
+    const std::filesystem::path& getWritePath(void) {
+        return pathWrite;
     }
 }

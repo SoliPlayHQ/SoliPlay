@@ -22,7 +22,7 @@ namespace SPPlugin {
 		void shutdown(void);
 
 		// 扫描并装配所有插件文件夹下的所有插件
-		void loadPlugins(void);
+		void loadPlugins(std::string pathOrigin);
 	private:
 		std::unordered_map<std::string, std::unique_ptr<Plugin>> mapPlugins;
 	};
