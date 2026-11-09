@@ -21,32 +21,32 @@ namespace SPLog {
 		log_level = lv;
 	}
 
-	void log(Level lv, std::string msg, const std::source_location& location) {
-		if (lv < log_level) return;
+	void log(Level lv, const std::string& msg, const std::source_location& location) {
+		if (lv < log_level || lv < Level::trace || lv > Level::fatal) return;
 		std::cout << SPLog::headLevel[(int)lv] << "[" << get_filename(location.file_name()) << ':' << location.line() << "] " << msg << std::endl;
 	}
 
-	void trace(std::string msg, const std::source_location& location) {
+	void trace(const std::string& msg, const std::source_location& location) {
 		log(Level::trace, msg, location);
 	}
 
-	void debug(std::string msg, const std::source_location& location) {
+	void debug(const std::string& msg, const std::source_location& location) {
 		log(Level::debug, msg, location);
 	}
 
-	void info(std::string msg, const std::source_location& location) {
+	void info(const std::string& msg, const std::source_location& location) {
 		log(Level::info, msg, location);
 	}
 
-	void warn(std::string msg, const std::source_location& location) {
+	void warn(const std::string& msg, const std::source_location& location) {
 		log(Level::warn, msg, location);
 	}
 
-	void error(std::string msg, const std::source_location& location) {
+	void error(const std::string& msg, const std::source_location& location) {
 		log(Level::error, msg, location);
 	}
 
-	void fatal(std::string msg, const std::source_location& location) {
+	void fatal(const std::string& msg, const std::source_location& location) {
 		log(Level::fatal, msg, location);
 	}
 

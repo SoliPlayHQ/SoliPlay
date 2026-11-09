@@ -16,10 +16,10 @@ namespace SPLog {
 
 	void initLogSystem(Level lv);
 
-	void trace(std::string msg, const std::source_location& location = std::source_location::current());
-	void debug(std::string msg, const std::source_location& location = std::source_location::current());
-	void info(std::string msg, const std::source_location& location = std::source_location::current());
-	void warn(std::string msg, const std::source_location& location = std::source_location::current());
-	void error(std::string msg, const std::source_location& location = std::source_location::current());
-	void fatal(std::string msg, const std::source_location& location = std::source_location::current());
+	void trace(const std::string& msg, const std::source_location& location = std::source_location::current());
+	void debug(const std::string& msg, const std::source_location& location = std::source_location::current());
+	void info(const std::string& msg, const std::source_location& location = std::source_location::current());
+	void warn(const std::string& msg, const std::source_location& location = std::source_location::current());
+	void error(const std::string& msg, const std::source_location& location = std::source_location::current());
+	void fatal(const std::string& msg, const std::source_location& location = std::source_location::current());
 }
