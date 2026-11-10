@@ -2,6 +2,8 @@
 #include <file_system/work_path.h>
 #include <tool_functions/path_tools.h>
 
+// [!!!] 未进行任何测试
+
 namespace SPPlugin {
 	Plugin::Plugin(PluginMeta meta) : meta_(meta) {
 		handle_ = nullptr;
@@ -9,11 +11,7 @@ namespace SPPlugin {
 
 	void Plugin::loadPlugin(void) {
 		// 展开相对路径为绝对路径
-		std::filesystem::path pEntryPath = meta_.entry_path;
-
-		std::filesystem::path pPrefixPath = meta_.origin;
-
-		std::filesystem::path pAbsolutePath = std::filesystem::weakly_canonical(pPrefixPath / pEntryPath);
+		std::filesystem::path pAbsolutePath = std::filesystem::weakly_canonical(meta_.library / meta_.entry_path);
 
 		// 尝试创建插件
 		try {

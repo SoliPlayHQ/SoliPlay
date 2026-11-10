@@ -1,6 +1,8 @@
 #include <tool_functions/string_tools.h>
 #include <Windows.h>
 
+// [O] 已完成实机可行性测试
+
 namespace SPTool {
 	std::wstring ChartoWide(const std::string& utf8) {
 		if (utf8.empty()) return {};

@@ -1,13 +1,16 @@
 #include <plugins_system/plugin_manager.h>
 #include <log_system.h>
 #include <tool_functions/path_tools.h>
-#include <file_system/work_path.h>
+#include <file_system/library.h>
 
 #include <filesystem>
 #include <nlohmann/json.hpp>
 
+// [!!!] 未进行任何测试
 
 namespace SPPlugin {
+	PluginMeta analysisMeta(std::string strMeta, std::filesystem::path pathLibrary, std::filesystem::path pathParent);
+
 	PluginManager& PluginManager::getInstance(void) {
 		PluginManager instance;
 		return instance;
@@ -15,7 +18,10 @@ namespace SPPlugin {
 
 	// 运行周期管理
 	void PluginManager::initialize(void) {
-		
+		SPLog::info("Plugin Manager Initialize...");
+		const std::vector<std::filesystem::path>& plugin_library = SPFile::getPluginLibrary();
+		for (auto& path : plugin_library)
+			loadPlugins(path);
 	}
 
 	void PluginManager::shutdown(void) {
@@ -26,28 +32,22 @@ namespace SPPlugin {
 	}
 
 	// 扫描并装配指定库中，插件文件夹下的所有插件
-	void PluginManager::loadPlugins(std::string pathOrigin) {
-
+	void PluginManager::loadPlugins(const std::filesystem::path& pathLibrary) {
+		for (std::filesystem::directory_iterator item(pathLibrary), end; item != end; ++item) {
+			if (std::filesystem::is_directory(item->path())) {
+				if (std::filesystem::is_regular_file(item->path() / "meta.json")) {
+					
+				}
+			}
+		}
 	}
 
-	/*
-	// 插件元数据结构体
-	struct PluginMeta {
-		std::string name;
-		std::string version;
-		PluginType type;
-		int arch_version;
-		std::string origin;			//来源库
-		std::string entry_path;			// 原为 entry，此条会被主程序修饰为用户插件文件夹内相对路径
-		std::vector<std::string> dependencies;
-	};
-	*/
 
 	// 解析 Meta 文件
-	PluginMeta analysisMeta(std::string strMeta, std::string pathOrigin, std::filesystem::path pathParent) {
+	PluginMeta analysisMeta(std::string strMeta, std::filesystem::path pathLibrary, std::filesystem::path pathParent) {
 		PluginMeta plugin_meta;
 
-		plugin_meta.origin = SPTool::PathtoChar(pathOrigin);
+		plugin_meta.library = pathLibrary;
 		try {
 			nlohmann::json jsonMeta(strMeta);
 
@@ -94,7 +94,7 @@ namespace SPPlugin {
 
 			// entry 解析、修饰相对路径
 			if (jsonMeta.contains("entry") && jsonMeta["entry"].is_string()) {
-				plugin_meta.entry_path = SPTool::PathtoChar(pathParent / std::filesystem::path(jsonMeta["entry"].get<std::string>()));
+				plugin_meta.entry_path = pathParent / std::filesystem::path(jsonMeta["entry"].get<std::string>());
 			}
 			else {
 				throw std::runtime_error("meta.json missing entry field or Invalid type (Must be string)");
@@ -139,8 +139,8 @@ namespace SPPlugin {
 				"  [Dependencies] : {6}\n"
 				"=======================================================================",
 				plugin_meta.name, plugin_meta.version, type_str,
-				plugin_meta.arch_version, plugin_meta.entry_path,
-				plugin_meta.origin, deps_str
+				plugin_meta.arch_version, SPTool::PathtoChar(plugin_meta.entry_path),
+				SPTool::PathtoChar(plugin_meta.library), deps_str
 			));
 
 		}

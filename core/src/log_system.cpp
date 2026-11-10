@@ -4,6 +4,9 @@
 /*
 简易日志系统（标准控制台终端输入输出）
 */
+
+// [O] 已完成实机可行性测试
+
 namespace SPLog {
 	std::string get_filename(const char* path) {
 		const char* p = path + std::strlen(path);

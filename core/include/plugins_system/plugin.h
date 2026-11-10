@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <filesystem>
 
 #include <plugins_system/plugin_handle.h>
 
@@ -17,8 +18,8 @@ namespace SPPlugin {
 		std::string version;
 		PluginType type;
 		int arch_version;
-		std::string origin;			//来源库
-		std::string entry_path;			// 原为 entry，此条会被主程序修饰为用户插件文件夹内相对路径
+		std::filesystem::path library;			//来源库
+		std::filesystem::path entry_path;			// 原为 entry，此条会被主程序修饰为用户插件文件夹内相对路径
 		std::vector<std::string> dependencies;
 	};
 

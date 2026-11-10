@@ -63,6 +63,9 @@
     <ClCompile Include="..\core\src\file_system\library.cpp">
       <Filter>Source Files\File System</Filter>
     </ClCompile>
+    <ClCompile Include="..\core\src\file_system\file_io.cpp">
+      <Filter>Source Files\File System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\core\include\log_system.h">
@@ -96,6 +99,9 @@
       <Filter>Header Files\Tool Functions</Filter>
     </ClInclude>
     <ClInclude Include="..\core\include\file_system\library.h">
+      <Filter>Header Files\File System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\file_system\file_io.h">
       <Filter>Header Files\File System</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,11 +1,11 @@
 #pragma once
 #include <string>
-#include <Windows.h>
+#include <filesystem>
 
 namespace SPPlugin {
 	class PluginHandle {
 	public:
-		explicit PluginHandle(std::string path);
+		explicit PluginHandle(const std::filesystem::path& path);
 		~PluginHandle();
 
 		void* getFuncAddress(std::string name);

@@ -3,6 +3,8 @@
 #include <tool_functions/path_tools.h>
 #include <log_system.h>
 
+// [?] 只进行过部分实机可行性测试
+
 namespace SPFile {
 	std::vector<std::filesystem::path> library;
 	std::vector<std::filesystem::path> plugin_library;

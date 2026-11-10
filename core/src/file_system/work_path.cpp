@@ -6,6 +6,8 @@
 #include <windows.h>
 #include <shlobj.h>
 
+// [O] 已完成实机可行性测试
+
 namespace SPFile {
     static std::filesystem::path pathExcute;
     static std::filesystem::path pathWrite;
