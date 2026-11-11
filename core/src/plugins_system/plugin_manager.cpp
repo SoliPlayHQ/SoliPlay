@@ -13,7 +13,7 @@ namespace SPPlugin {
 	PluginMeta analyseMeta(std::string strMeta, std::filesystem::path pathLibrary, std::filesystem::path pathParent);
 
 	PluginManager& PluginManager::getInstance(void) {
-		PluginManager instance;
+		static PluginManager instance;
 		return instance;
 	}
 
@@ -65,14 +65,14 @@ namespace SPPlugin {
 
 		plugin_meta.library = pathLibrary;
 		try {
-			nlohmann::json jsonMeta(strMeta);
+			nlohmann::json jsonMeta = nlohmann::json::parse(strMeta);
 
 			// name 解析
 			if (jsonMeta.contains("name") && jsonMeta["name"].is_string()) {
 				plugin_meta.name = jsonMeta["name"].get<std::string>();
 			}
 			else {
-				throw std::runtime_error("meta.json missing name Field or Invalid type (Must be string)");
+				throw std::runtime_error("meta.json missing \"name\" Field or Invalid type(Must be string)");
 			}
 
 			// version 解析
@@ -80,7 +80,7 @@ namespace SPPlugin {
 				plugin_meta.version = jsonMeta["version"].get<std::string>();
 			}
 			else {
-				throw std::runtime_error("meta.json missing version field or Invalid type (Must be string)");
+				throw std::runtime_error("meta.json missing \"version\" field or Invalid type (Must be string)");
 			}
 
 			// arch_version 解析
@@ -88,7 +88,7 @@ namespace SPPlugin {
 				plugin_meta.arch_version = jsonMeta["arch_version"].get<int>();
 			}
 			else {
-				throw std::runtime_error("meta.json missing arch_version field or Invalid type (Must be integer)");
+				throw std::runtime_error("meta.json missing \"arch_version\" field or Invalid type (Must be integer)");
 			}
 
 			// type 解析
@@ -105,7 +105,7 @@ namespace SPPlugin {
 				}
 			}
 			else {
-				throw std::runtime_error("meta.json missing type field or Invalid type (Must be string)");
+				throw std::runtime_error("meta.json missing \"type\" field or Invalid type (Must be string)");
 			}
 
 			// entry 解析、修饰相对路径
@@ -113,7 +113,7 @@ namespace SPPlugin {
 				plugin_meta.entry_path = pathParent / std::filesystem::path(jsonMeta["entry"].get<std::string>());
 			}
 			else {
-				throw std::runtime_error("meta.json missing entry field or Invalid type (Must be string)");
+				throw std::runtime_error("meta.json missing \"entry\" field or Invalid type (Must be string)");
 			}
 
 			// dependencies 解析
@@ -129,7 +129,7 @@ namespace SPPlugin {
 					}
 				}
 				else {
-					throw std::runtime_error("meta.json Dependencies must be array");
+					throw std::runtime_error("meta.json \"dependencies\" must be array");
 				}
 			}
 

@@ -6,15 +6,19 @@
 #include <file_system/library.h>
 #include <plugins_system/plugin_manager.h>
 
-void InitSystem(void) {
-	SPLog::initLogSystem(SPLog::Level::debug);
+void initSystem(void) {
+	SPLog::initLogSystem(SPLog::Level::trace);
 	SPFile::initWorkPath();
 	SPFile::initLibrary();
 	SPPlugin::PluginManager::getInstance().initialize();
 }
 
-int main(void) {
-	InitSystem();
+void shutdownSystem(void) {
+	SPPlugin::PluginManager::getInstance().shutdown();
+}
 
+int main(void) {
+	initSystem();
+	shutdownSystem();
 	return 0;
 }
