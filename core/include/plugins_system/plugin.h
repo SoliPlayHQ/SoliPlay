@@ -32,6 +32,8 @@ namespace SPPlugin {
 		// 插件加载管理
 		void loadPlugin(void);
 		void unloadPlugin(void);
+
+		const PluginMeta& getMeta(void);
 	private:
 		PluginMeta meta_;
 		std::unique_ptr<PluginHandle> handle_ = nullptr;

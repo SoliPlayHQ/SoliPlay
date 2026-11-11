@@ -25,4 +25,8 @@ namespace SPPlugin {
 	void Plugin::unloadPlugin(void) {
 		handle_.reset();
 	}
+
+	const PluginMeta& Plugin::getMeta(void) {
+		return meta_;
+	}
 }

@@ -71,6 +71,7 @@ namespace SPFile {
 			if (!ofsFile.good()) return false;
 		}
 
+		// 保存临时文件为正式文件
 		std::filesystem::rename(pathTemp, pathFile, ec);
 
 		if (ec) {

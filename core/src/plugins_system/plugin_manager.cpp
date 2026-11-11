@@ -2,6 +2,7 @@
 #include <log_system.h>
 #include <tool_functions/path_tools.h>
 #include <file_system/library.h>
+#include <file_system/file_io.h>
 
 #include <filesystem>
 #include <nlohmann/json.hpp>
@@ -9,7 +10,7 @@
 // [!!!] 未进行任何测试
 
 namespace SPPlugin {
-	PluginMeta analysisMeta(std::string strMeta, std::filesystem::path pathLibrary, std::filesystem::path pathParent);
+	PluginMeta analyseMeta(std::string strMeta, std::filesystem::path pathLibrary, std::filesystem::path pathParent);
 
 	PluginManager& PluginManager::getInstance(void) {
 		PluginManager instance;
@@ -22,6 +23,8 @@ namespace SPPlugin {
 		const std::vector<std::filesystem::path>& plugin_library = SPFile::getPluginLibrary();
 		for (auto& path : plugin_library)
 			loadPlugins(path);
+
+		SPLog::info(std::format("Plugin Manager Initialize Success! Get {0} Plugins!", mapPlugins.size()));
 	}
 
 	void PluginManager::shutdown(void) {
@@ -36,7 +39,20 @@ namespace SPPlugin {
 		for (std::filesystem::directory_iterator item(pathLibrary), end; item != end; ++item) {
 			if (std::filesystem::is_directory(item->path())) {
 				if (std::filesystem::is_regular_file(item->path() / "meta.json")) {
-					
+					std::string strMeta;
+					SPFile::ReadFiletoString(item->path() / "meta.json", strMeta);
+					try {
+						PluginMeta meta = analyseMeta(strMeta, pathLibrary, item->path().filename());
+
+						if (mapPlugins.find(meta.name) == mapPlugins.end())
+							mapPlugins.emplace(meta.name, std::make_unique<Plugin>(meta));
+						else {
+							SPLog::warn(std::format("Name of Plugin from {0} is Clashes with Plugin from {1}!", SPTool::PathtoChar(item->path()), SPTool::PathtoChar(meta.library / meta.entry_path.parent_path())));
+						}
+					}
+					catch (const std::exception& e) {
+						SPLog::warn(std::format("meta.json from Directory {0} analyse Failed! Cause: {1}", SPTool::PathtoChar(item->path()), e.what()));
+					}
 				}
 			}
 		}
@@ -44,7 +60,7 @@ namespace SPPlugin {
 
 
 	// 解析 Meta 文件
-	PluginMeta analysisMeta(std::string strMeta, std::filesystem::path pathLibrary, std::filesystem::path pathParent) {
+	PluginMeta analyseMeta(std::string strMeta, std::filesystem::path pathLibrary, std::filesystem::path pathParent) {
 		PluginMeta plugin_meta;
 
 		plugin_meta.library = pathLibrary;
