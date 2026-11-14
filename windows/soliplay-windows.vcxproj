@@ -152,9 +152,11 @@
     <ClInclude Include="..\core\include\plugins_system\plugin.h" />
     <ClInclude Include="..\core\include\plugins_system\plugin_handle.h" />
     <ClInclude Include="..\core\include\plugins_system\plugin_manager.h" />
+    <ClInclude Include="..\core\include\plugins_system\plugin_type.h" />
     <ClInclude Include="..\core\include\tool_functions\path_tools.h" />
     <ClInclude Include="..\core\include\tool_functions\string_tools.h" />
-    <ClInclude Include="..\sdk\iplugin.h" />
+    <ClInclude Include="..\sdk\iplugin_function.h" />
+    <ClInclude Include="..\sdk\iplugin_object.h" />
     <ClInclude Include="..\sdk\iplugin_struct.h" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +167,7 @@
     <ClCompile Include="..\core\src\plugins_system\plugin.cpp" />
     <ClCompile Include="..\core\src\plugins_system\plugin_handle.cpp" />
     <ClCompile Include="..\core\src\plugins_system\plugin_manager.cpp" />
+    <ClCompile Include="..\core\src\plugins_system\plugin_type\object_plugin.cpp" />
     <ClCompile Include="..\core\src\tool_functions\path_tools.cpp" />
     <ClCompile Include="..\core\src\tool_functions\string_tools.cpp" />
     <ClCompile Include="src\main.cpp" />

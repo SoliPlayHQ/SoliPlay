@@ -21,7 +21,7 @@ namespace SPPlugin {
 
 	}
 
-	void* PluginHandle::getFuncAddress(std::string name) {
+	void* PluginHandle::getFuncAddress(const std::string& name) {
 		return GetProcAddress((HMODULE)hPlugin_, name.c_str());
 	}
 

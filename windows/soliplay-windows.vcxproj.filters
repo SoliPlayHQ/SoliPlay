@@ -34,6 +34,9 @@
     <Filter Include="Source Files\Tool Functions">
       <UniqueIdentifier>{6e362edc-2566-46d4-905f-ceb7b5f904ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Plugins System\Plugin Type">
+      <UniqueIdentifier>{70bddf76-ec6d-4909-81a5-ae2b8ddec9cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -66,6 +69,9 @@
     <ClCompile Include="..\core\src\file_system\file_io.cpp">
       <Filter>Source Files\File System</Filter>
     </ClCompile>
+    <ClCompile Include="..\core\src\plugins_system\plugin_type\object_plugin.cpp">
+      <Filter>Source Files\Plugins System\Plugin Type</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\core\include\log_system.h">
@@ -77,7 +83,7 @@
     <ClInclude Include="..\core\include\plugins_system\plugin_manager.h">
       <Filter>Header Files\Plugins System</Filter>
     </ClInclude>
-    <ClInclude Include="..\sdk\iplugin.h">
+    <ClInclude Include="..\sdk\iplugin_object.h">
       <Filter>Header Files\Plugins System\Plugins SDK</Filter>
     </ClInclude>
     <ClInclude Include="..\sdk\iplugin_struct.h">
@@ -103,6 +109,12 @@
     </ClInclude>
     <ClInclude Include="..\core\include\file_system\file_io.h">
       <Filter>Header Files\File System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\plugins_system\plugin_type.h">
+      <Filter>Header Files\Plugins System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sdk\iplugin_function.h">
+      <Filter>Header Files\Plugins System\Plugins SDK</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

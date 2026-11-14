@@ -23,7 +23,10 @@ namespace SPPlugin {
 
 		// 扫描并装配所有插件文件夹下的所有插件
 		void loadPlugins(const std::filesystem::path& pathLibrary);
+
+		// 获取插件
+		Plugin* getPlugin(const std::string plugin_id);
 	private:
-		std::unordered_map<std::string, std::unique_ptr<Plugin>> mapPlugins;
+		std::unordered_map<std::string, std::unique_ptr<Plugin>> mapPlugins_;
 	};
 }

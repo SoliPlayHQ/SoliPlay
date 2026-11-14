@@ -27,13 +27,20 @@ namespace SPPlugin {
 	class Plugin {
 	public:
 		Plugin(PluginMeta meta);
-		~Plugin() = default;
+		~Plugin();
 
 		// 插件加载管理
 		void loadPlugin(void);
 		void unloadPlugin(void);
 
 		const PluginMeta& getMeta(void);
+
+		// 获取函数地址
+		void* getFuncAddress(const std::string& strFuncName);
+	protected:
+		// 来自子类的钩子函数
+		virtual void hookLoad(void) = 0;
+		virtual void hoolUnload(void) = 0;
 	private:
 		PluginMeta meta_;
 		std::unique_ptr<PluginHandle> handle_ = nullptr;

@@ -8,7 +8,7 @@ namespace SPPlugin {
 		explicit PluginHandle(const std::filesystem::path& path);
 		~PluginHandle();
 
-		void* getFuncAddress(std::string name);
+		void* getFuncAddress(const std::string& name);
 
 		PluginHandle(const PluginHandle&) = delete;
 		PluginHandle& operator=(const PluginHandle&) = delete;

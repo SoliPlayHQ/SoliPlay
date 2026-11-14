@@ -1,4 +1,5 @@
 #include <plugins_system/plugin_manager.h>
+#include <plugins_system/plugin_type.h>
 #include <log_system.h>
 #include <tool_functions/path_tools.h>
 #include <file_system/library.h>
@@ -24,14 +25,14 @@ namespace SPPlugin {
 		for (auto& path : plugin_library)
 			loadPlugins(path);
 
-		SPLog::info(std::format("Plugin Manager Initialize Success! Get {0} Plugins!", mapPlugins.size()));
+		SPLog::info(std::format("Plugin Manager Initialize Success! Get {0} Plugins!", mapPlugins_.size()));
 	}
 
 	void PluginManager::shutdown(void) {
-		for (auto& [key, value] : mapPlugins)
+		for (auto& [key, value] : mapPlugins_)
 			value->unloadPlugin();
 
-		mapPlugins.clear();
+		mapPlugins_.clear();
 	}
 
 	// 扫描并装配指定库中，插件文件夹下的所有插件
@@ -44,8 +45,11 @@ namespace SPPlugin {
 					try {
 						PluginMeta meta = analyseMeta(strMeta, pathLibrary, item->path().filename());
 
-						if (mapPlugins.find(meta.name) == mapPlugins.end())
-							mapPlugins.emplace(meta.name, std::make_unique<Plugin>(meta));
+						if (mapPlugins_.find(meta.name) == mapPlugins_.end()) {
+							if (meta.type == PluginType::object) {
+								mapPlugins_.emplace(meta.name, std::make_unique<ObjectPlugin>(meta));
+							}
+						}
 						else {
 							SPLog::warn(std::format("Name of Plugin from {0} is Clashes with Plugin from {1}!", SPTool::PathtoChar(item->path()), SPTool::PathtoChar(meta.library / meta.entry_path.parent_path())));
 						}
@@ -56,6 +60,14 @@ namespace SPPlugin {
 				}
 			}
 		}
+	}
+
+	// 获取插件对象
+	Plugin* PluginManager::getPlugin(const std::string plugin_id) {
+		auto item = mapPlugins_.find(plugin_id);
+		if (item == mapPlugins_.end())
+			throw std::runtime_error(std::format("Plugin {} isn't exist!", plugin_id));
+		return item->second.get();
 	}
 
 

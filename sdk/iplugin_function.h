@@ -9,11 +9,6 @@
 
 // 实例插件基本 API
 extern "C" {
-	// 初始化插件，提供主程序工具 API
+	// 初始化插件，提供主程序 Host API
 	SOLIPLAY_API void initPlugin(const SoliHostAPI* hostAPI);
-	// 创建插件实例
-	SOLIPLAY_API SOLI_PLUGIN_INSTANCE createInstance(void);
-
-	// 销毁插件实例
-	SOLIPLAY_API void destroyInstance(const SOLI_PLUGIN_INSTANCE instance);
 }
