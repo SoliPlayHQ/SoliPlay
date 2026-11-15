@@ -10,10 +10,6 @@ namespace SPPlugin {
 		handle_ = nullptr;
 	}
 
-	Plugin::~Plugin() {
-		unloadPlugin();
-	}
-
 	void Plugin::loadPlugin(void) {
 		// 展开相对路径为绝对路径
 		std::filesystem::path pAbsolutePath = std::filesystem::weakly_canonical(meta_.library / meta_.entry_path);
@@ -31,6 +27,9 @@ namespace SPPlugin {
 	}
 
 	void Plugin::unloadPlugin(void) {
+		if (!handle_) return;
+		hookUnload();
+
 		handle_.reset();
 		SPLog::trace(std::format("Unload Plugin {}!", meta_.name));
 	}

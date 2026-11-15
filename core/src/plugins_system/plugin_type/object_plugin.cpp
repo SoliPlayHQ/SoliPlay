@@ -1,4 +1,4 @@
-#include <plugins_system/plugin_type.h>
+#include <plugins_system/plugin_type/plugin_type.h>
 
 namespace SPPlugin {
 	/*
@@ -30,9 +30,9 @@ namespace SPPlugin {
 	}
 
 	void ObjectPlugin::hookUnload(void) {
+		hookObjectUnload();
+
 		createInstance_ = nullptr;
 		destroyInstance_ = nullptr;
-
-		hookObjectUnload();
 	}
 }

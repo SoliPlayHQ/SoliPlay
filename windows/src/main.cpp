@@ -5,11 +5,14 @@
 #include <iplugin_struct.h>
 #include <file_system/library.h>
 #include <plugins_system/plugin_manager.h>
+#include <plugins_system/host_api/host_api.h>
 
 void initSystem(void) {
 	SPLog::initLogSystem(SPLog::Level::trace);
 	SPFile::initWorkPath();
 	SPFile::initLibrary();
+
+	SPHost::initHostAPI();
 	SPPlugin::PluginManager::getInstance().initialize();
 }
 

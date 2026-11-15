@@ -23,11 +23,11 @@ namespace SPPlugin {
 		std::vector<std::string> dependencies;
 	};
 
-	// 插件对象
+	// 插件大类，负责 Plugin Handle 存活周期管理
 	class Plugin {
 	public:
 		Plugin(PluginMeta meta);
-		~Plugin();
+		virtual ~Plugin() = default;
 
 		// 插件加载管理
 		void loadPlugin(void);
@@ -40,7 +40,7 @@ namespace SPPlugin {
 	protected:
 		// 来自子类的钩子函数
 		virtual void hookLoad(void) = 0;
-		virtual void hoolUnload(void) = 0;
+		virtual void hookUnload(void) = 0;
 	private:
 		PluginMeta meta_;
 		std::unique_ptr<PluginHandle> handle_ = nullptr;

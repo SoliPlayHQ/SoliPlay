@@ -37,6 +37,21 @@
     <Filter Include="Source Files\Plugins System\Plugin Type">
       <UniqueIdentifier>{70bddf76-ec6d-4909-81a5-ae2b8ddec9cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Plugins System\Host API">
+      <UniqueIdentifier>{a78348b8-b25d-4d91-a572-1e95864bed11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Plugins System\Host API">
+      <UniqueIdentifier>{f29036c6-2f36-49a9-95ea-d503c2b0f7f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Plugins System\Plugin Type">
+      <UniqueIdentifier>{b8adc062-bc49-4454-aee4-41c63bbc934b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Plugins System\Plugin Type\Object Plugin">
+      <UniqueIdentifier>{08dbdb73-5209-43e7-accc-4658e730006c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Plugins System\Plugin Type\Object Plugin">
+      <UniqueIdentifier>{f32c0811-bbb8-4be6-995b-c00d85202ac2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -72,6 +87,15 @@
     <ClCompile Include="..\core\src\plugins_system\plugin_type\object_plugin.cpp">
       <Filter>Source Files\Plugins System\Plugin Type</Filter>
     </ClCompile>
+    <ClCompile Include="..\core\src\plugins_system\host_api\host_api.cpp">
+      <Filter>Source Files\Plugins System\Host API</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\src\plugins_system\host_api\host_api_log.cpp">
+      <Filter>Source Files\Plugins System\Host API</Filter>
+    </ClCompile>
+    <ClCompile Include="..\core\src\plugins_system\plugin_type\object_plugin\free_object_plugin.cpp">
+      <Filter>Source Files\Plugins System\Plugin Type\Object Plugin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\core\include\log_system.h">
@@ -88,9 +112,6 @@
     </ClInclude>
     <ClInclude Include="..\sdk\iplugin_struct.h">
       <Filter>Header Files\Plugins System\Plugins SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="..\core\include\plugins_system\host_API.h">
-      <Filter>Header Files\Plugins System</Filter>
     </ClInclude>
     <ClInclude Include="..\core\include\plugins_system\plugin.h">
       <Filter>Header Files\Plugins System</Filter>
@@ -110,11 +131,20 @@
     <ClInclude Include="..\core\include\file_system\file_io.h">
       <Filter>Header Files\File System</Filter>
     </ClInclude>
-    <ClInclude Include="..\core\include\plugins_system\plugin_type.h">
-      <Filter>Header Files\Plugins System</Filter>
-    </ClInclude>
     <ClInclude Include="..\sdk\iplugin_function.h">
       <Filter>Header Files\Plugins System\Plugins SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\plugins_system\host_api\host_api.h">
+      <Filter>Header Files\Plugins System\Host API</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\plugins_system\host_api\host_api_log.h">
+      <Filter>Header Files\Plugins System\Host API</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\plugins_system\plugin_type\plugin_type.h">
+      <Filter>Header Files\Plugins System\Plugin Type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core\include\plugins_system\plugin_type\object_plugin\free_plugin.h">
+      <Filter>Header Files\Plugins System\Plugin Type\Object Plugin</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

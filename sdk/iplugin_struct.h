@@ -16,8 +16,8 @@ typedef struct {
 typedef void* SOLI_PLUGIN_INSTANCE;
 
 // Object 插件入口函数
-typedef SOLI_PLUGIN_INSTANCE(*CreateInstanceFunc)(const SoliHostAPI* hostAPI);
+typedef SOLI_PLUGIN_INSTANCE(*CreateInstanceFunc)(const SoliHostAPI hostAPI);
 typedef void (*DestroyInstanceFunc)(const SOLI_PLUGIN_INSTANCE instance);
 
 // Function 插件入口函数
-typedef void (*InitPluginFunc)(const SoliHostAPI* hostAPI);
+typedef void (*InitPluginFunc)(const SoliHostAPI hostAPI);

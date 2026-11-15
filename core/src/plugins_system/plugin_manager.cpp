@@ -1,5 +1,5 @@
 #include <plugins_system/plugin_manager.h>
-#include <plugins_system/plugin_type.h>
+#include <plugins_system/plugin_type/object_plugin/free_plugin.h>
 #include <log_system.h>
 #include <tool_functions/path_tools.h>
 #include <file_system/library.h>
@@ -47,7 +47,7 @@ namespace SPPlugin {
 
 						if (mapPlugins_.find(meta.name) == mapPlugins_.end()) {
 							if (meta.type == PluginType::object) {
-								mapPlugins_.emplace(meta.name, std::make_unique<ObjectPlugin>(meta));
+								mapPlugins_.emplace(meta.name, std::make_unique<FreeObjectPlugin>(meta));
 							}
 						}
 						else {
