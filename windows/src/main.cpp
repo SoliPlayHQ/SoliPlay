@@ -6,6 +6,7 @@
 #include <file_system/library.h>
 #include <plugins_system/plugin_manager.h>
 #include <plugins_system/host_api/host_api.h>
+#include <plugins_system/plugin_type/object_plugin/free_plugin.h>
 
 void initSystem(void) {
 	SPLog::initLogSystem(SPLog::Level::trace);

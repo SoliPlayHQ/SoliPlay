@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 
 typedef struct {
 	void (*trace)(const char* msg);
@@ -13,7 +14,7 @@ typedef struct {
 	SoliLogAPI log;
 } SoliHostAPI;
 
-typedef void* SOLI_PLUGIN_INSTANCE;
+typedef uint64_t SOLI_PLUGIN_INSTANCE;
 
 // Object 插件入口函数
 typedef SOLI_PLUGIN_INSTANCE(*CreateInstanceFunc)(const SoliHostAPI hostAPI);

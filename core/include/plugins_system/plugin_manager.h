@@ -25,7 +25,7 @@ namespace SPPlugin {
 		void loadPlugins(const std::filesystem::path& pathLibrary);
 
 		// 获取插件
-		Plugin* getPlugin(const std::string plugin_id);
+		Plugin* getPlugin(const std::string& plugin_id);
 	private:
 		std::unordered_map<std::string, std::unique_ptr<Plugin>> mapPlugins_;
 	};

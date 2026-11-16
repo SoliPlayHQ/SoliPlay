@@ -3,10 +3,14 @@
     "title": "SoliPlay Plugin Manifest",
     "type": "object",
     "properties": {
-        "name": {
+        "id": {
             "type": "string",
             "description": "插件唯一标识符",
             "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "name": {
+            "type": "string",
+            "description": "插件显示名称",
         },
         "version": {
             "type": "string",

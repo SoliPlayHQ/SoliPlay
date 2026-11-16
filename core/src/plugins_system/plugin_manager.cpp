@@ -45,9 +45,9 @@ namespace SPPlugin {
 					try {
 						PluginMeta meta = analyseMeta(strMeta, pathLibrary, item->path().filename());
 
-						if (mapPlugins_.find(meta.name) == mapPlugins_.end()) {
+						if (mapPlugins_.find(meta.id) == mapPlugins_.end()) {
 							if (meta.type == PluginType::object) {
-								mapPlugins_.emplace(meta.name, std::make_unique<FreeObjectPlugin>(meta));
+								mapPlugins_.emplace(meta.id, std::make_unique<FreeObjectPlugin>(meta));
 							}
 						}
 						else {
@@ -63,7 +63,7 @@ namespace SPPlugin {
 	}
 
 	// 获取插件对象
-	Plugin* PluginManager::getPlugin(const std::string plugin_id) {
+	Plugin* PluginManager::getPlugin(const std::string& plugin_id) {
 		auto item = mapPlugins_.find(plugin_id);
 		if (item == mapPlugins_.end())
 			throw std::runtime_error(std::format("Plugin {} isn't exist!", plugin_id));
@@ -78,6 +78,21 @@ namespace SPPlugin {
 		plugin_meta.library = pathLibrary;
 		try {
 			nlohmann::json jsonMeta = nlohmann::json::parse(strMeta);
+
+			// name 解析
+			if (jsonMeta.contains("id") && jsonMeta["id"].is_string()) {
+				plugin_meta.id = jsonMeta["id"].get<std::string>();
+				if (plugin_meta.id.empty() || plugin_meta.id.size() > 64) {
+					throw std::runtime_error("meta.json's \"id\" length must be between 1 and 64 charactors!");
+				}
+
+				if (!std::all_of(plugin_meta.id.begin(), plugin_meta.id.end(), [](unsigned char c) { return ((c >= 'a') && (c <= 'z')) || ((c >= '0') && (c <= '9')) || c == '_'; })) {
+					throw std::runtime_error("meta.json's \"id\" only contain number, lower case letters and underscores!‌");
+				}
+			}
+			else {
+				throw std::runtime_error("meta.json missing \"id\" Field or Invalid type(Must be string)");
+			}
 
 			// name 解析
 			if (jsonMeta.contains("name") && jsonMeta["name"].is_string()) {
@@ -158,6 +173,7 @@ namespace SPPlugin {
 
 			SPLog::debug(std::format(
 				"\n================ [{0} Plugin Meta Parsed Successfully] ================\n"
+				"  [ID]           : {7}\n"
 				"  [Name]         : {0}\n"
 				"  [Version]      : {1}\n"
 				"  [Type]         : {2}\n"
@@ -168,7 +184,7 @@ namespace SPPlugin {
 				"=======================================================================",
 				plugin_meta.name, plugin_meta.version, type_str,
 				plugin_meta.arch_version, SPTool::PathtoChar(plugin_meta.entry_path),
-				SPTool::PathtoChar(plugin_meta.library), deps_str
+				SPTool::PathtoChar(plugin_meta.library), deps_str, plugin_meta.id
 			));
 
 		}

@@ -14,6 +14,7 @@ namespace SPPlugin {
 
 	// 插件元数据结构体
 	struct PluginMeta {
+		std::string id;
 		std::string name;
 		std::string version;
 		PluginType type;
@@ -27,7 +28,7 @@ namespace SPPlugin {
 	class Plugin {
 	public:
 		Plugin(PluginMeta meta);
-		virtual ~Plugin() = default;
+		~Plugin() = default;
 
 		// 插件加载管理
 		void loadPlugin(void);
