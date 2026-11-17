@@ -3,38 +3,37 @@
 #include <log_system.h>
 
 namespace SPPlugin {
-	/*
-	class ObjectPlugin : public Plugin {
-	public:
-		ObjectPlugin();
-		~ObjectPlugin() = default;
-
-		SOLI_PLUGIN_INSTANCE createInstance();
-		void destroyInstance(SOLI_PLUGIN_INSTANCE instance);
-	protected:
-		// 来自子类的钩子函数
-		void hookLoad(void);
-	private:
-		CreateInstanceFunc createInstance;
-		DestroyInstanceFunc destroyInstance;
-	};
-	*/
-
 	ObjectPlugin::ObjectPlugin(PluginMeta meta) : Plugin(meta) {
-		
+		alive_ = false;
 	}
 
+	bool ObjectPlugin::isAlive(void) {
+		return alive_;
+	}
 	
-
 	SOLI_PLUGIN_INSTANCE ObjectPlugin::createInstance() {
-		return createInstance_(SPHost::getHostAPI());
+		if (alive_) {
+			std::lock_guard<std::mutex> lock(mtxInstances_);
+			instances_.push_back(createInstance_(SPHost::getHostAPI()));
+			return *(instances_.end() - 1);
+		}
 	}
 
 	void ObjectPlugin::destroyInstance(SOLI_PLUGIN_INSTANCE instance) {
-		destroyInstance_(instance);
+		if (alive_) {
+			std::lock_guard<std::mutex> lock(mtxInstances_);
+			for (auto i = instances_.begin(); i < instances_.end(); ++i)
+				if (instance == *i) {
+					destroyInstance_(instance);
+					instances_.erase(i);
+
+					break;
+				}
+		}
 	}
 
 	void ObjectPlugin::hookLoad(void) {
+		alive_ = true;
 		createInstance_ = (CreateInstanceFunc)getFuncAddress("createInstance");
 		SPLog::trace(std::format("{}'s createInstance in {}", getMeta().name, getFuncAddress("createInstance")));
 		destroyInstance_ = (DestroyInstanceFunc)getFuncAddress("destroyInstance");
@@ -43,7 +42,15 @@ namespace SPPlugin {
 	}
 
 	void ObjectPlugin::hookUnload(void) {
+		alive_ = false;
 		hookObjectUnload();
+
+		{
+			std::lock_guard<std::mutex> lock(mtxInstances_);
+			for (auto i : instances_) {
+				destroyInstance_(i);
+			}
+		}
 
 		createInstance_ = nullptr;
 		destroyInstance_ = nullptr;

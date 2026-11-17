@@ -5,7 +5,7 @@
 #include <log_system.h>
 #include <tool_functions/path_tools.h>
 
-// [!!!] 未进行任何测试
+// [?] 只进行过部分实机可行性测试
 
 namespace SPFile {
 	// 从文件读内容，但是会打 warn 级日志

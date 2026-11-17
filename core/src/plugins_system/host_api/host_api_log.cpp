@@ -1,6 +1,8 @@
 #include <plugins_system/host_api/host_api_log.h>
 #include <log_system.h>
 
+// [O] 已完成实机可行性测试
+
 namespace SPHost {
 	void trace(const char* msg) {
 		SPLog::trace(msg);
