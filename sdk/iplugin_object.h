@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IPLUGIN_OBJECT
+#define IPLUGIN_OBJECT
+
 #include "iplugin_struct.h"
 
 #ifdef SOLI_PLUGIN_EXPORT
@@ -14,3 +16,5 @@ extern "C" {
 	// 销毁插件实例
 	SOLIPLAY_API void destroyInstance(const SOLI_PLUGIN_INSTANCE instance);
 }
+
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IPLUGIN_FUNCTION
+#define IPLUGIN_FUNCTION
+
 #include "iplugin_struct.h"
 
 #ifdef SOLI_PLUGIN_EXPORT
@@ -12,3 +14,5 @@ extern "C" {
 	// 初始化插件，提供主程序 Host API
 	SOLIPLAY_API void initPlugin(const SoliHostAPI hostAPI);
 }
+
+#endif

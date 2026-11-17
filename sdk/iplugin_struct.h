@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IPLUGIN_STRUCT
+#define IPLUGIN_STRUCT
+
 #include <stdint.h>
 
 typedef struct {
@@ -22,3 +24,5 @@ typedef void (*DestroyInstanceFunc)(const SOLI_PLUGIN_INSTANCE instance);
 
 // Function 插件入口函数
 typedef void (*InitPluginFunc)(const SoliHostAPI hostAPI);
+
+#endif
